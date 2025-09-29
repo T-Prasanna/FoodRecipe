@@ -132,12 +132,14 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: wp(4), backgroundColor: "#F9FAFB" },
   backButton: { marginBottom: hp(1.5) },
   backButtonText: { fontSize: hp(2.2), color: "#4F75FF" },
-  aaddButton: {
+  addButton: {
     backgroundColor: "#4F75FF",
     padding: wp(2),
     alignItems: "center",
-    borderRadius: 5,
-    marginBottom: hp(2),
+    borderRadius: 2,
+    marginBottom: hp(1),
+    width: wp(40),
+    alignSelf: "center",   
   },
   addButtonText: {
     color: "#fff",
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   recipeTitle: { fontSize: hp(2.2), fontWeight: "600", marginBottom: hp(0.5) },
   recipeDescription: { fontSize: hp(1.8), color: "#6B7280", marginBottom: hp(1.5) },
   editDeleteButtons: { flexDirection: "row", justifyContent: "space-between" },
-  editButton: { backgroundColor: "#34D399", padding: wp(1.5), borderRadius: 5, width: wp(5), alignItems: "center" },
+  editButton: { backgroundColor: "#34D399", padding: wp(1), borderRadius: 5, width: wp(5), alignItems: "center" },
   editButtonText: { color: "#fff", fontWeight: "600" },
   deleteButton: { backgroundColor: "#EF4444", padding: wp(1.5), borderRadius: 5, width: wp(5), alignItems: "center" },
   deleteButtonText: { color: "#fff", fontWeight: "600" },
