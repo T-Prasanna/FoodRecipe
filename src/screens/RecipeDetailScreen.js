@@ -1,3 +1,4 @@
+
 import {View,Text,ScrollView,TouchableOpacity,Image,StyleSheet,} from "react-native";
 import React from "react";
 import {
@@ -9,7 +10,8 @@ import { useDispatch, useSelector } from "react-redux"; // Redux hooks
 import { toggleFavorite } from "../redux/favoritesSlice"; // Redux action
 
 export default function RecipeDetailScreen(props) {
-  const recipe = props.route.params; // recipe passed from previous screen
+    const { recipe } = props.route.params;
+    // recipe passed from previous screen
 
   const dispatch = useDispatch();
   const favoriterecipes = useSelector(
@@ -26,18 +28,23 @@ export default function RecipeDetailScreen(props) {
   };
 
   return (
-    <ScrollView
-      style={styles.container}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.scrollContent}
-    >
-      {/* recipe Image */}
-      <View style={styles.imageContainer} testID="imageContainer">
-     
-      </View>
+    // Inside your ScrollView return
+<ScrollView
+  style={styles.container}
+  showsVerticalScrollIndicator={false}
+  contentContainerStyle={styles.scrollContent}
+>
+  {/* Recipe Image */}
+  <View style={styles.imageContainer} testID="imageContainer">
+    <Image
+      source={{ uri: recipe.recipeImage }}
+      style={styles.recipeImage}
+      resizeMode="cover"
+    />
+  </View>
 
-      {/* Back Button and Favorite Button */}
-      <View style={styles.topButtonsContainer}>
+  {/* Back Button and Favorite Button */}
+   <View style={styles.topButtonsContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.backButton}
@@ -57,38 +64,65 @@ export default function RecipeDetailScreen(props) {
         </TouchableOpacity>
       </View>
 
-      {/* recipe Description */}
-  
-        <View style={styles.contentContainer}>
-          {/* Title and Category */}
-          <View
-            style={styles.recipeDetailsContainer}
-            testID="recipeDetailsContainer"
-          >
-            <Text style={styles.recipeTitle} testID="recipeTitle">
-         
-              
-              </Text>
-            <Text style={styles.recipeCategory} testID="recipeCategory">
-              </Text>
-          </View>
-          <View style={styles.miscContainer} testID="miscContainer">
-        
-      </View>
 
-      {/* Ingredients */}
-      <View style={styles.sectionContainer}>
-     
-      </View>
+  {/* Recipe Details */}
+  <View style={styles.contentContainer}>
+    <View
+      style={styles.recipeDetailsContainer}
+      testID="recipeDetailsContainer"
+    >
+      <Text style={styles.recipeTitle} testID="recipeTitle">
+        {recipe.recipeName}
+      </Text>
+      <Text style={styles.recipeCategory} testID="recipeCategory">
+        {recipe.recipeCategory}
+      </Text>
+    </View>
 
-      {/* Instructions */}
-      <View style={styles.sectionContainer} testID="sectionContainer">
-        
+    {/* Misc info: mins, servings, calories, type */}
+    <View style={styles.miscContainer} testID="miscContainer">
+      <View style={styles.miscItem}>
+        <Text style={styles.miscIcon}>🕒</Text>
+          <Text style={styles.miscText}>35 Mins</Text>
+      </View>
+      <View style={styles.miscItem}>
+        <Text style={styles.miscIcon}>👥</Text>
+          <Text style={styles.miscText}>03 Servings</Text>
+      </View>
+      <View style={styles.miscItem}>
+        <Text style={styles.miscIcon}>🔥</Text>
+          <Text style={styles.miscText}>103 Cal</Text>
+      </View>
+      <View style={styles.miscItem}>
+       <Text style={styles.miscIcon}>🎚️</Text>
+          <Text style={styles.miscText}>Medium</Text>
+      </View>
+    </View>
+
+    {/* Ingredients Section */}
+   <Text style={styles.sectionTitle}>Ingredients</Text>
+        <View style={styles.ingredientsList} testID="ingredientsList">
+          {(recipe.ingredients).map((i) => (
+            <View key={i} style={styles.ingredientItem}>
+              <View style={styles.ingredientBullet} />
+              <Text style={styles.ingredientText}>
+                {/* {meal["strMeasure" + i]} {meal["strIngredient" + i]} */}
+                {i.ingredientName} {i.measure}
+              </Text>
+            </View>
+          ))}
         </View>
-          {/* Description */}
-         
-        </View>
-    </ScrollView>
+
+    {/* Instructions Section */}
+    <View style={styles.sectionContainer}>
+      <Text style={styles.sectionTitle}>Instructions</Text>
+      <Text style={styles.instructionsText}>
+        {recipe.recipeInstructions}
+      </Text>
+    </View>
+  </View>
+</ScrollView>
+
   );
 }
 

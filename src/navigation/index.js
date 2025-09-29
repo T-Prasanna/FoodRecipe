@@ -25,6 +25,12 @@ function AppNavigation() {
         <Stack.Screen name="CustomRecipesScreen" component={CustomRecipesScreen} />
         <Stack.Screen name="RecipesFormScreen" component={RecipesFormScreen} />
         <Stack.Screen name="FavoriteScreen" component={FavoriteScreen} />
+        <Stack.Screen 
+          name="RecipeDetailScreen"   // 👈 MUST match navigation.navigate("RecipeDetailScreen")
+          component={RecipeDetailScreen}
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen name="favoritesSlice" component={favoritesSlice} />
       </Stack.Navigator>
     </NavigationContainer>
   );

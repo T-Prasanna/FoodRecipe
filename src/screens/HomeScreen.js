@@ -1,4 +1,3 @@
-
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -12,7 +11,7 @@ import FoodItems from "../components/recipes";
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Chicken");
 
-  // Hardcoded categories for news
+  // Categories list
   const [categories, setCategories] = useState([
     {
       idCategory: "1",
@@ -92,7 +91,7 @@ export default function HomeScreen() {
       
   ]);
 
-  // Keep all foods in state (unfiltered list)
+  // Recipes (only part shown in your code snippet)
   const [allFood, setAllFood] = useState([
     {
       category:'Beef',
@@ -696,45 +695,58 @@ export default function HomeScreen() {
     },
   ]);
 
+
+
+  // Filter recipes by category
+  const filteredFoods = allFood.filter(
+    (item) => item.category === activeCategory
+  );
+
+  // Category change handler
   const handleChangeCategory = (category) => {
     setActiveCategory(category);
   };
 
-  // Filter foods by active category during rendering
-  const filteredfoods = allFood.filter(
-    (food) => food.category === activeCategory
-  );
-
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
         testID="scrollContainer"
       >
+
+        {/* Header */}
         <View style={styles.headerContainer} testID="headerContainer">
-        <Image
-            source={{uri:'https://cdn.pixabay.com/photo/2017/02/23/13/05/avatar-2092113_1280.png'}}
+          <Image
+            source={{
+              uri: "https://cdn.pixabay.com/photo/2017/02/23/13/05/avatar-2092113_1280.png",
+            }}
             style={styles.avatar}
           />
           <Text style={styles.greetingText}>Hello, User!</Text>
         </View>
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Make your own food,</Text>
-          <Text style={styles.subtitle}>
-            stay at <Text style={styles.highlight}>home</Text>
-          </Text>
+        {/* Title */}
+        <View style={styles.titleContainer} testID="titleContainer">
+          <Text style={styles.title}>Make your own food</Text>
+          <Text style={styles.subtitle}>stay at home</Text>
         </View>
 
+        {/* Categories */}
         <View testID="categoryList">
-       
+          <Categories
+            categories={categories}
+            activeCategory={activeCategory}
+            handleChangeCategory={handleChangeCategory}
+          />
         </View>
 
+        {/* Recipes */}
         <View testID="foodList">
-
-          </View>
+          <FoodItems foods={filteredFoods} categories={categories} />
+        </View>
       </ScrollView>
     </View>
   );
